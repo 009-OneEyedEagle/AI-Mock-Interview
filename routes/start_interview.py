@@ -51,6 +51,9 @@ async def start_interview(resume: UploadFile, interview_type: str = Form(...) ):
     prompt = f""" Extract the relevant information from the resume for {interview_type} interview. 
     The resume text is: {text}
     Return 5 relevent questions to ask the candidate based on the resume for the given interview type.
+    The questions should be open-ended and designed to assess the candidate's suitability for the role.
+    The questions should cover technical skills, problem-solving abilities, and relevant experiences.
+    The questions should be tailored to the specific requirements of a {interview_type} interview.
     The questions should be concise and relevant to the candidate's experience and skills.
     The questions should be in the format of a list, each question on a new line.
     if the resume is empty or the pdf is not a resume, return "No relevant information found in the resume.
