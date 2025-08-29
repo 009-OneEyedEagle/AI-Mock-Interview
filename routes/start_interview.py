@@ -56,7 +56,8 @@ async def start_interview(resume: UploadFile, interview_type: str = Form(...) ):
     The questions should be tailored to the specific requirements of a {interview_type} interview.
     The questions should be concise and relevant to the candidate's experience and skills.
     The questions should be in the format of a list, each question on a new line.
-    if the resume is empty or the pdf is not a resume, return "No relevant information found in the resume.
+    If the pdf file is empty or the pdf is not a resume, return "No relevant information found in the resume.
+    Be careful if the resume is empty or not a resume, do not generate random questions, just return "No relevant information found in the resume".
     Return the questions only, do not include any additional text or explanation.
     
     """
@@ -78,4 +79,8 @@ async def start_interview(resume: UploadFile, interview_type: str = Form(...) ):
         for question in formatted_questions.values():
             f.write(question + "\n")
 
-    return formatted_questions
+    response = {
+        "questions": formatted_questions,
+        "resume_text": text,
+    }
+    return response
