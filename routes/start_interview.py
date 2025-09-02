@@ -58,6 +58,8 @@ async def start_interview(resume: UploadFile, interview_type: str = Form(...) ):
     The questions should be in the format of a list, each question on a new line.
     If the pdf file is empty or the pdf is not a resume, return "No relevant information found in the resume.
     Be careful if the resume is empty or not a resume, do not generate random questions, just return "No relevant information found in the resume".
+    If there is no sufficient information in the resume about the given type of interview ask general technical questions about the type of interview.
+    generate as many questions about the interview type as possible based on the resume first but if there is no sufficient information in the resume about the given type of interview ask general technical questions only about that type of interview.
     Return the questions only, do not include any additional text or explanation.
     
     """
