@@ -2,7 +2,7 @@ from typing import List
 from starlette import status
 from dotenv import load_dotenv
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException, APIRouter
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from fastapi.responses import JSONResponse
 import google.generativeai as genai
 import aiofiles
@@ -27,12 +27,13 @@ router = APIRouter(
 )
 
 
-class Question( BaseModel) :
-    question1: str
-    question2: str
-    question3: str
-    question4: str
-    question5: str
+class Question(BaseModel):
+    question1: str = Field(..., alias="question 1")
+    question2: str = Field(..., alias="question 2")
+    question3: str = Field(..., alias="question 3")
+    question4: str = Field(..., alias="question 4")
+    question5: str = Field(..., alias="question 5")
+
 
 
 class Answers( BaseModel) :
@@ -42,8 +43,17 @@ class Answers( BaseModel) :
     answer4: str
     answer5: str
 
+class ReportRequest(BaseModel):
+    resume_text: str
+    ans: Answers
+    quest: Question
+
+
 @router.post("/generate_report")
-async def generate_report(resume_text: str ,ans: Answers, quest: Question):
+async def generate_report(request: ReportRequest):
+    resume_text = request.resume_text
+    ans = request.ans
+    quest = request.quest
     # Defining the model
     model = genai.GenerativeModel(model_name="gemini-1.5-flash")
 
@@ -80,16 +90,17 @@ async def generate_report(resume_text: str ,ans: Answers, quest: Question):
     And should have a final score out of 100 based on the answers provided.
     The report should be in the format of a paragraph, do not include any additional text or explanation.
     format:
-    1. Good and bad points about each answer.
+    1. Good and bad points about each answer and how to improve the answers.
     2. Strengths: 
     3. Weaknesses:
     4. Overall Performance:
     5. Recommendations:
     6. Final Score:
     7. Conclusion:
+    return the response in json format with keys as answers_highlight, strengths, weaknesses, overall performance, recommendations, final score and conclusion.
     """
 
-    #return the response in json format with keys as strengths, weaknesses, overall performance, recommendations, final score and conclusion.
+    #return the response in json format with keys as answers_highlight, strengths, weaknesses, overall performance, recommendations, final score and conclusion.
     
     response = (model.generate_content(prompt))
     
