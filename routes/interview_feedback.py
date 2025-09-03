@@ -97,6 +97,9 @@ async def generate_report(request: ReportRequest):
     5. Recommendations:
     6. Final Score:
     7. Conclusion:
+    Do not leave any section empty.
+    if the answer is not relevant to the question, mention it in the report.
+    If the answer is too short or does not provide enough information, mention it in the report and mention how to improve it.
     return the response in json format with keys as answers_highlight, strengths, weaknesses, overall performance, recommendations, final score and conclusion.
     """
 
