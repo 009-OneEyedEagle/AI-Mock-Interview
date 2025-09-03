@@ -90,7 +90,7 @@ async def generate_report(request: ReportRequest):
     And should have a final score out of 100 based on the answers provided.
     The report should be in the format of a paragraph, do not include any additional text or explanation.
     format:
-    1. Good and bad points about each answer and how to improve the answers: 
+    1. Good and bad points about each answer and how to improve the answers: return just a String not key value pair.
     2. Strengths: 
     3. Weaknesses:
     4. Overall Performance:
@@ -101,7 +101,6 @@ async def generate_report(request: ReportRequest):
     if the answer is not relevant to the question, mention it in the report.
     If the answer is too short or does not provide enough information, mention it in the report and mention how to improve it.
     return the response in json format with keys as answers_highlight, strengths, weaknesses, overall performance, recommendations, final score and conclusion.
-    within each of the keys return only string as value.
     """
 
     #return the response in json format with keys as answers_highlight, strengths, weaknesses, overall performance, recommendations, final score and conclusion.
