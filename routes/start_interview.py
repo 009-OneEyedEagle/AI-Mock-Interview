@@ -30,6 +30,12 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(SAVE_FOLDER, exist_ok=True)
 
 
+@router.get("/active")
+async def active():
+    return JSONResponse(content={"message": "The /start endpoint is active"}, status_code=status.HTTP_200_OK)
+
+
+
 @router.post("/start_interview")
 async def start_interview(resume: UploadFile, interview_type: str = Form(...) ):
     
