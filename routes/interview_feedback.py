@@ -55,7 +55,7 @@ async def generate_report(request: ReportRequest):
     ans = request.ans
     quest = request.quest
     # Defining the model
-    model = genai.GenerativeModel(model_name="gemini-1.5-flash")
+    model = genai.GenerativeModel(model_name="gemini-2.5-flash")
 
     #getting the questions
     # questions_path = os.path.join(SAVE_FOLDER, Resume_name+ ".txt")
