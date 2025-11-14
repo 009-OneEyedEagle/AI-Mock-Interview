@@ -40,7 +40,7 @@ async def active():
 async def start_interview(resume: UploadFile, interview_type: str = Form(...) ):
     
     #Defining the model
-    model = genai.GenerativeModel(model_name="gemini-1.5-flash")
+    model = genai.GenerativeModel(model_name="gemini-2.5-flash")
     # Check if the file is a PDF
     if not resume.filename.endswith('.pdf'):
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="File must be a PDF")
